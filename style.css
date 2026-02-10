@@ -1,0 +1,899 @@
+ :root {
+            --neon-blue: #00f2ff;
+            --dark-navy: #0b0f19;
+            --card-bg: #161b2a;
+            --input-bg: #1f2937;
+            --text-main: #e5e7eb;
+            --gold: #ffc107;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--dark-navy);
+            color: var(--text-main);
+            font-family: 'Tajawal', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        /* تنسيق شريط التنقل */
+.main-nav {
+    width: 100%;
+    background: rgba(15, 23, 42, 0.9); /* لون غامق شفاف شوية */
+    backdrop-filter: blur(10px); /* تأثير زجاجي */
+    padding: 15px 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid var(--neon-blue);
+    margin-bottom: 20px;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+    font-size: 1rem;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--neon-blue);
+}
+
+/* زرار الحجز في الهيدر */
+.nav-booking-btn {
+    background: var(--neon-blue);
+    color: #000 !important;
+    padding: 10px 20px;
+    border-radius: 50px;
+    font-weight: bold;
+    box-shadow: 0 0 15px rgba(0, 242, 255, 0.3);
+    transition: 0.4s !important;
+}
+
+.nav-booking-btn:hover {
+    background: white;
+    box-shadow: 0 0 25px rgba(0, 242, 255, 0.6);
+    transform: translateY(-2px);
+}
+
+/* --- تصميم اللوجو المطور --- */
+.logo-wrapper {
+    position: relative;
+    cursor: pointer;
+    perspective: 1000px;
+}
+
+.logo-custom {
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 1;
+    transition: transform 0.5s ease;
+}
+
+/* كلمة صالون - بخط رفيع وأنيق */
+.logo-brand {
+    font-family: 'Cairo', sans-serif;
+    font-weight: 400;
+    font-size: 0.9rem;
+    color: #fff;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    opacity: 0.9;
+    margin-bottom: 2px;
+}
+
+/* كلمة باسم - بخط عريض وتأثير نيون متوهج */
+.logo-name {
+    font-family: 'Cairo', sans-serif;
+    font-weight: 900;
+    font-size: 2.2rem;
+    background: linear-gradient(to bottom, #fff 30%, var(--neon-blue) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 0 8px rgba(0, 242, 255, 0.6));
+    position: relative;
+    animation: pulseGlow 3s infinite alternate;
+}
+
+/* الخط المضيء تحت الاسم */
+.logo-glow-bar {
+    width: 0%;
+    height: 2px;
+    background: var(--neon-blue);
+    box-shadow: 0 0 15px var(--neon-blue), 0 0 5px #fff;
+    transition: width 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    margin-top: 2px;
+}
+
+/* --- تأثيرات الأنيميشن والهوفر --- */
+
+/* انيميشن نبض التوهج */
+@keyframes pulseGlow {
+    0% {
+        filter: drop-shadow(0 0 5px rgba(0, 242, 255, 0.4));
+        transform: scale(1);
+    }
+    100% {
+        filter: drop-shadow(0 0 15px rgba(0, 242, 255, 0.9));
+        transform: scale(1.02);
+    }
+}
+
+/* تأثير عند الوقوف بالماوس على اللوجو */
+.logo-wrapper:hover .logo-custom {
+    transform: rotateX(10deg) rotateY(-10px);
+     
+}
+
+.logo-wrapper:hover .logo-glow-bar {
+    width: 100%;
+}
+
+.logo-wrapper:hover .logo-name {
+    animation: flicker 0.15s infinite alternate; /* تأثير روعة كأن اللمبة بتتحرك */
+}
+
+/* انيميشن الـ Flicker (رعشة الضوء الاحترافية) */
+@keyframes flicker {
+    0% { opacity: 1; filter: drop-shadow(0 0 15px var(--neon-blue)); }
+    100% { opacity: 0.8; filter: drop-shadow(0 0 5px var(--neon-blue)); }
+}
+
+/* لمسة أخيرة: إضافة حرف الـ B بشكل خفي في الخلفية (اختياري) */
+.logo-custom::before {
+    content: 'B';
+    position: absolute;
+    font-size: 4rem;
+    color: rgba(0, 242, 255, 0.03);
+    font-weight: 900;
+    z-index: -1;
+    top: -10px;
+    right: -20px;
+    font-family: 'Poppins', sans-serif;
+       
+
+}
+/* --- ضبط التجاوب الرئيسي --- */
+
+/* 1. إخفاء زر الموبايل افتراضياً في الشاشات الكبيرة */
+.mobile-menu-btn {
+    display: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.mobile-menu-btn:hover {
+    color: var(--neon-blue);
+}
+
+/* 2. ميديا كويري لشاشات الموبايل والتابلت (أقل من 768px) */
+@media (max-width: 768px) {
+    .nav-container {
+        padding: 0 15px;
+    }
+
+    /* تصغير حجم اللوجو شوية عشان الموبايل */
+    .logo-name {
+        font-size: 1.6rem; 
+    }
+    .logo-brand {
+        font-size: 0.7rem;
+        letter-spacing: 2px;
+    }
+
+    .mobile-menu-btn {
+        display: block; /* إظهار زر المنيو */
+    }
+
+    /* تحويل القائمة لمنيو مخفي يظهر عند الضغط */
+    .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(11, 15, 25, 0.98); /* لون غامق جداً متناسق */
+        flex-direction: column;
+        padding: 20px 0;
+        gap: 20px;
+        border-bottom: 2px solid var(--neon-blue);
+        display: none; /* مخفي افتراضياً */
+        animation: slideDown 0.4s ease forwards;
+    }
+
+    /* كلاس يضاف بالـ JS لإظهار القائمة */
+    .nav-links.active {
+        display: flex;
+    }
+
+    .nav-links li {
+        width: 100%;
+        text-align: center;
+    }
+
+    /* زرار "احجز الآن" في الموبايل */
+    .nav-booking-btn {
+        display: inline-block;
+        width: 80%; /* عشان مياخدش عرض الشاشة كلها ويبقى شكله وحش */
+        padding: 12px;
+    }
+}
+
+/* 3. ميديا كويري للشاشات الصغيرة جداً (أقل من 400px) */
+@media (max-width: 400px) {
+    .logo-name {
+        font-size: 1.3rem;
+    }
+    .logo-brand {
+        display: none; /* إخفاء كلمة صالون في الشاشات القزمة لتوفير مساحة */
+    }
+}
+
+/* انيميشن ظهور المنيو */
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* تنسيق الحاوية الجديدة للأزرار */
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* مسافة بين زر الحجز وزر المنيو */
+}
+.nav-actions a{
+    text-decoration: none;
+}
+
+/* تعديل الميديا كويري للموبايل */
+@media (max-width: 768px) {
+    .nav-links {
+        /* نفس تنسيقات المنيو اللي عملناها قبل كده */
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: rgba(11, 15, 25, 0.98);
+        flex-direction: column;
+        padding: 20px 0;
+        display: none;
+        text-decoration: none;
+    }
+
+    .nav-links.active {
+        display: flex;
+    }
+
+    /* زرار احجز الآن في الموبايل */
+    .nav-booking-btn {
+        padding: 8px 15px; /* تصغير الحجم شوية عشان يناسب الموبايل */
+        font-size: 0.85rem;
+        order: -1; /* يضمن ظهوره قبل زر المنيو */
+    }
+
+    .mobile-menu-btn {
+        display: block;
+        order: 1;
+    }
+}
+
+       /* --- سكشن الهيدر المتجاوب (صورة باسم) --- */
+.owner-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin: 0 auto 40px; /* توسيط السكشن */
+    width: 100%;
+    max-width: 100%; /* السماح له بأخذ العرض المتاح */
+    padding: 0 15px;
+}
+
+.owner-img-wrapper {
+    position: relative;
+    /* استخدام عرض مرن مع حد أقصى */
+    width: 100%; 
+    max-width: 320px; 
+    /* نسبة الطول للعرض لضمان عدم التمطيط */
+    aspect-ratio: 1 / 1.1; 
+    margin-bottom: 25px;
+}
+
+.owner-img-wrapper img {
+    width: 100%;
+    height: 100%;
+    border-radius: 30px; /* تغيير الـ 70% لزوايا مودرن أكثر أو اتركها كما تحب */
+    object-fit: cover;
+    border: 3px solid var(--neon-blue);
+    padding: 5px;
+    background: var(--card-bg);
+    box-shadow: 0 0 25px rgba(0, 242, 255, 0.4);
+    transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.owner-details h2 {
+    font-size: clamp(2rem, 8vw, 2.8rem); /* تصغير الخط تلقائياً حسب حجم الشاشة */
+    color: white;
+    margin-bottom: 10px;
+    line-height: 1.2;
+}
+
+.owner-rating {
+    justify-content: center; /* توسيط النجوم في كل الشاشات */
+    gap: 8px;
+    margin-bottom: 15px;
+    color: #ffd700; /* Gold */
+}
+
+.owner-details p {
+    font-size: 1rem;
+    color: #94a3b8;
+    line-height: 1.6;
+    max-width: 450px;
+    margin: 0 auto; /* لضمان التوسط */
+}
+
+/* --- Media Queries للتجاوب الدقيق --- */
+
+@media (max-width: 768px) {
+    .owner-img-wrapper {
+        max-width: 280px; /* تصغير الصورة شوية في الموبايل */
+    }
+    
+    .owner-details h2 {
+        font-size: 2.2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .owner-header {
+        margin-bottom: 20px;
+    }
+    
+    .owner-img-wrapper {
+        max-width: 240px; /* تصغير إضافي للموبايلات الصغيرة جداً */
+    }
+
+    .owner-details p {
+        font-size: 0.9rem;
+        padding: 0 10px;
+    }
+}
+        
+
+        /* --- سكشن دعوة للحجز --- */
+.cta-booking-section {
+    padding: 100px 20px;
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    justify-content: center;
+}
+
+.cta-container {
+    width: 100%;
+}
+
+.booking-glass-card {
+    position: relative;
+    background: rgba(22, 27, 42, 0.6);
+    backdrop-filter: blur(15px);
+    border: 1px solid rgba(0, 242, 255, 0.2);
+    border-radius: 40px;
+    padding: 60px 40px;
+    text-align: center;
+    overflow: hidden;
+    transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+/* حركة الكارد عند الهوفر */
+.booking-glass-card:hover {
+    transform: translateY(-15px);
+    border-color: var(--neon-blue);
+    box-shadow: 0 30px 60px rgba(0, 242, 255, 0.15);
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0, 242, 255, 0.1);
+    color: var(--neon-blue);
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    margin-bottom: 25px;
+    border: 1px solid rgba(0, 242, 255, 0.3);
+}
+
+.pulse-dot {
+    font-size: 0.6rem;
+    animation: pulseRed 1.5s infinite;
+}
+
+@keyframes pulseRed {
+    0% { opacity: 1; transform: scale(1); }
+    100% { opacity: 0; transform: scale(2.5); }
+}
+
+.cta-title {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 20px;
+    color: white;
+}
+
+.cta-title .highlight {
+    color: var(--neon-blue);
+    text-shadow: 0 0 20px rgba(0, 242, 255, 0.5);
+}
+
+.cta-text {
+    font-size: 1.2rem;
+    color: #94a3b8;
+    max-width: 700px;
+    margin: 0 auto 35px;
+    line-height: 1.8;
+}
+
+.cta-features {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 40px;
+    color: #e5e7eb;
+}
+
+.cta-features i { color: var(--neon-blue); }
+
+/* --- تصميم الزرار الاحترافي --- */
+.cta-main-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    background: var(--neon-blue);
+    color: var(--dark-navy);
+    padding: 20px 45px;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    font-weight: 800;
+    text-decoration: none;
+    transition: 0.4s;
+    z-index: 1;
+    overflow: hidden;
+}
+
+.cta-main-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    transition: 0.5s;
+}
+
+.cta-main-btn:hover::before {
+    left: 100%;
+}
+
+.cta-main-btn:hover {
+    box-shadow: 0 0 30px var(--neon-blue);
+    transform: scale(1.05);
+}
+
+/* كرة الإضاءة الخلفية */
+.glow-sphere {
+    position: absolute;
+    top: -50px;
+    right: -50px;
+    width: 200px;
+    height: 200px;
+    background: var(--neon-blue);
+    filter: blur(100px);
+    opacity: 0.15;
+    z-index: -1;
+}
+
+/* --- Responsive (التجاوب) --- */
+@media (max-width: 768px) {
+    .booking-glass-card {
+        padding: 40px 20px;
+        border-radius: 25px;
+    }
+
+    .cta-title {
+        font-size: 2rem;
+    }
+
+    .cta-text {
+        font-size: 1rem;
+    }
+
+    .cta-features {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .cta-main-btn {
+        width: 90%;
+        justify-content: center;
+        padding: 15px 30px;
+    }
+}
+
+       /* --- التنسيقات العامة للنيون --- */
+.main-neon-text {
+    color: var(--neon-blue);
+    text-shadow: 0 0 10px rgba(0, 242, 255, 0.5);
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.section-subtitle {
+    color: #94a3b8;
+    margin-bottom: 40px;
+    font-size: 1.1rem;
+}
+
+/* --- الجاليري المطور --- */
+.gallery-section {
+    padding: 80px 0;
+    width: 100%;
+    max-width: 1200px;
+    text-align: center;
+}
+
+/* --- الجاليري المتجاوب والذكي --- */
+.gallery-grid-modern {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* الوضع الافتراضي للكمبيوتر */
+    gap: 20px;
+    padding: 20px;
+}
+
+.gallery-card {
+    position: relative;
+    border-radius: 15px;
+    overflow: hidden;
+    aspect-ratio: 3 / 4; /* نسبة الطول للعرض */
+    border: 1px solid rgba(0, 242, 255, 0.1);
+}
+
+.gallery-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* يمنع التمطيط تماماً */
+}
+
+/* --- للشاشات المتوسطة (تابلت) --- */
+@media (max-width: 992px) {
+    .gallery-grid-modern {
+        grid-template-columns: repeat(2, 1fr); /* صورتين جنب بعض */
+    }
+}
+
+/* --- الحل السحري للموبايل (أقل من 600px) --- */
+@media (max-width: 600px) {
+    .gallery-grid-modern {
+        grid-template-columns: 1fr; /* صورة واحدة فقط مالي عرض الشاشة */
+        gap: 25px; /* زيادة المسافة بين الصور لراحة العين */
+        padding: 15px;
+    }
+
+    .gallery-card {
+        aspect-ratio: 4 / 5; /* نخلي الكارت أطول شوية عشان التفاصيل تبان */
+        border-radius: 20px;
+        box-shadow: 0 10px 20px rgba(0,0,0,0.3); /* ظل خفيف عشان يفصل الصور */
+    }
+
+    .gallery-overlay {
+        /* إظهار الكلام دائماً في الموبايل لأن مفيش ماوس يعمل هوفر */
+        bottom: 0;
+        background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    }
+    
+    .gallery-overlay span {
+        font-size: 1.1rem; /* تكبير الخط عشان يبان */
+    }
+}
+@media (max-width: 600px) {
+    .features-grid {
+        grid-template-columns: 1fr; /* كارت واحد في الصف */
+        padding: 10px;
+    }
+
+    .modern-feature-card {
+        padding: 40px 20px;
+        margin-bottom: 10px;
+    }
+
+    .modern-feature-card h3 {
+        font-size: 1.5rem; /* تكبير العنوان */
+    }
+
+    .modern-feature-card p {
+        font-size: 1.1rem; /* تكبير النص لشاشات الموبايل */
+        line-height: 1.8;
+    }
+}
+
+
+
+/* --- المميزات بنظام الكروت المضيئة --- */
+.premium-features {
+    padding: 60px 20px;
+    width: 100%;
+    max-width: 1200px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.modern-feature-card {
+    position: relative;
+    background: var(--card-bg);
+    padding: 40px 30px;
+    border-radius: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    text-align: center;
+    overflow: hidden;
+    transition: 0.4s;
+}
+
+.icon-box {
+    width: 70px;
+    height: 70px;
+    background: rgba(0, 242, 255, 0.1);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 1.8rem;
+    color: var(--neon-blue);
+    transition: 0.4s;
+}
+
+.modern-feature-card h3 {
+    font-size: 1.4rem;
+    color: white;
+    margin-bottom: 15px;
+}
+
+.modern-feature-card p {
+    color: #94a3b8;
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.card-glow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 0%, rgba(0, 242, 255, 0.1), transparent 70%);
+    opacity: 0;
+    transition: 0.4s;
+}
+
+/* Hover Effects للمميزات */
+.modern-feature-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--neon-blue);
+}
+
+.modern-feature-card:hover .icon-box {
+    background: var(--neon-blue);
+    color: var(--dark-navy);
+    transform: rotateY(360deg);
+}
+
+.modern-feature-card:hover .card-glow {
+    opacity: 1;
+}
+/* --- ضبط التجاوب لقسم المميزات --- */
+
+@media (max-width: 768px) {
+    .premium-features {
+        padding: 40px 15px; /* تقليل الحواف في الموبايل */
+    }
+
+    .features-grid {
+        /* تقليل الفجوة بين الكروت في الموبايل */
+        gap: 20px;
+        /* جعل الكروت تأخذ عرض الشاشة بالكامل بشكل أفضل */
+        grid-template-columns: 1fr; 
+    }
+
+    .modern-feature-card {
+        padding: 30px 20px; /* تقليل الحشو الداخلي للكارت */
+        border-radius: 20px; /* تنعيم الزوايا للموبايل */
+    }
+
+    .icon-box {
+        width: 60px; /* تصغير الأيقونة قليلاً */
+        height: 60px;
+        font-size: 1.5rem;
+    }
+
+    .modern-feature-card h3 {
+        font-size: 1.25rem; /* تصغير العنوان قليلاً */
+    }
+
+    .modern-feature-card p {
+        font-size: 0.9rem; /* تصغير النص ليتناسب مع عرض الموبايل */
+    }
+}
+
+/* للشاشات الصغيرة جداً (أقل من 480px) */
+@media (max-width: 480px) {
+    .premium-features {
+        padding: 30px 10px;
+    }
+    
+    .modern-feature-card {
+        padding: 25px 15px;
+    }
+}
+
+/* Responsive للجاليري */
+@media (max-width: 992px) {
+    .gallery-grid-modern { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 600px) {
+    .gallery-grid-modern { grid-template-columns: 1fr; }
+}
+
+
+/* --- تنسيق الفوتر الرئيسي --- */
+.main-footer {
+    width: 100%;
+    background: #0b0f19; /* نفس لون الـ Dark Navy بتاعك */
+    padding: 60px 20px 20px;
+    border-top: 1px solid rgba(0, 242, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    text-align: center;
+}
+
+/* لوجو الفوتر */
+.footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+}
+
+.footer-logo .logo-name {
+    font-family: 'Cairo', sans-serif;
+    font-weight: 900;
+    font-size: 1.8rem;
+    color: white;
+    letter-spacing: 2px;
+}
+
+.logo-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--neon-blue);
+    border-radius: 50%;
+    box-shadow: 0 0 10px var(--neon-blue);
+}
+
+/* حاوية أيقونات السوشيال */
+.social-container {
+    display: flex;
+    gap: 20px;
+}
+
+.social-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.2rem;
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* ألوان الهوفر للأيقونات */
+.social-icon:hover {
+    transform: translateY(-10px);
+    color: #fff;
+}
+
+.social-icon.fb:hover { background: #1877f2; box-shadow: 0 0 20px rgba(24, 119, 242, 0.5); border-color: #1877f2; }
+.social-icon.ig:hover { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%); box-shadow: 0 0 20px rgba(214, 36, 159, 0.5); border-color: transparent; }
+.social-icon.wa:hover { background: #25d366; box-shadow: 0 0 20px rgba(37, 211, 102, 0.5); border-color: #25d366; }
+
+/* معلومات الحقوق */
+.footer-info {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 25px;
+    width: 100%;
+    color: #94a3b8;
+    font-size: 0.9rem;
+}
+
+.footer-info .highlight {
+    color: var(--neon-blue);
+    font-weight: bold;
+}
+
+.designer-credit {
+    margin-top: 10px;
+    font-size: 0.8rem;
+    opacity: 0.6;
+}
+
+.designer-credit i {
+    color: #ff4d4d; /* لون القلب أو كود البرمجة */
+}
+
+/* خط النيون السفلي */
+.footer-bottom-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, var(--neon-blue), transparent);
+    box-shadow: 0 0 15px var(--neon-blue);
+}
+
+/*Responsive*/
+@media (max-width: 600px) {
+    .main-footer { padding: 40px 20px 20px; }
+    .footer-logo .logo-name { font-size: 1.5rem; }
+}

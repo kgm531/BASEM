@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حجز موعد - صالون باسم</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+       :root {
+            --neon-blue: #00f2ff;
+            --dark-navy: #0b0f19;
+            --card-bg: #161b2a;
+            --input-bg: #1f2937;
+            --text-main: #e5e7eb;
+            --gold: #ffc107;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--dark-navy);
+            color: var(--text-main);
+            font-family: 'Tajawal', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+        /* --- حاوية الحجز (الفورم) --- */
+        .booking-card {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .step-title {
+            font-size: 1.1rem;
+            color: var(--neon-blue);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* شبكة الخدمات */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin-bottom: 30px;
+        }
+
+        .service-option input { display: none; }
+
+        .option-content {
+            background: var(--input-bg);
+            padding: 18px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: 0.3s;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .service-option input:checked + .option-content {
+            border-color: var(--neon-blue);
+            background: rgba(0, 242, 255, 0.08);
+            transform: translateY(-3px);
+        }
+
+        .price { font-weight: bold; color: var(--neon-blue); font-size: 0.9rem; }
+
+        /* المدخلات */
+        .input-fields-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .main-input {
+            background: var(--input-bg);
+            border: 1px solid #374151;
+            padding: 14px;
+            border-radius: 12px;
+            color: white;
+            outline: none;
+            width: 100%;
+        }
+
+        .date-time-row {
+            display: flex;
+            gap: 12px;
+        }
+
+        .field-box {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .field-box label { font-size: 0.75rem; color: #9ca3af; margin-right: 5px; }
+
+        input[type="date"], input[type="time"] {
+            background: var(--input-bg);
+            border: 1px solid #374151;
+            padding: 12px;
+            border-radius: 10px;
+            color: white;
+        }
+
+        /* ملخص الفاتورة */
+        .invoice-section {
+            margin-top: 25px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 15px;
+            padding: 20px;
+            border: 1px dashed #374151;
+        }
+
+        .invoice-header {
+            font-size: 0.8rem;
+            color: #6b7280;
+            margin-bottom: 12px;
+            border-bottom: 1px solid #374151;
+            padding-bottom: 5px;
+        }
+
+        .total-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 2px solid var(--neon-blue);
+        }
+
+        #totalPriceDisplay {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: var(--neon-blue);
+        }
+
+        .confirm-button {
+            width: 100%;
+            margin-top: 25px;
+            padding: 16px;
+            background: var(--neon-blue);
+            color: var(--dark-navy);
+            border: none;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .confirm-button:hover {
+            box-shadow: 0 0 25px rgba(0, 242, 255, 0.4);
+            transform: scale(1.02);
+        }
+
+        ::-webkit-calendar-picker-indicator { filter: invert(1); }
+    </style>
+</head>
+<body>
+
+<main class="booking-container">
+        <section class="booking-card">
+            <form id="appointmentForm">
+                
+                <div class="step-section">
+                    <h2 class="step-title"><i class="fas fa-cut"></i> الخدمات</h2>
+                    <div class="services-grid">
+                        <label class="service-option">
+                            <input type="checkbox" name="service" value="60" data-name="قص شعر">
+                            <div class="option-content">
+                                <span>قص شعر</span>
+                                <span class="price">150 EGP</span>
+                            </div>
+                        </label>
+                        <label class="service-option">
+                            <input type="checkbox" name="service" value="40" data-name="تحديد ذقن">
+                            <div class="option-content">
+                                <span>حلاقة ذقن</span>
+                                <span class="price">50 EGP</span>
+                            </div>
+                        </label>
+                        <label class="service-option">
+                            <input type="checkbox" name="service" value="30" data-name="غسيل واستشوار">
+                            <div class="option-content">
+                                <span>استشوار</span>
+                                <span class="price">50 EGP</span>
+                            </div>
+                        </label>
+                        <label class="service-option">
+                            <input type="checkbox" name="service" value="100" data-name="تنظيف بشرة">
+                            <div class="option-content">
+                                <span>ماسك وجه</span>
+                                <span class="price">30 EGP</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="step-section">
+                    <h2 class="step-title"><i class="fas fa-calendar-check"></i> الموعد</h2>
+                    <div class="input-fields-stack">
+                        <input type="text" placeholder="الاسم الكامل" class="main-input" required>
+                        <input type="tel" placeholder="رقم الهاتف" class="main-input" required>
+                        
+                        <div class="date-time-row">
+                            <div class="field-box">
+                                <label>اليوم</label>
+                                <input type="date" id="bookingDate" required>
+                            </div>
+                            <div class="field-box">
+                                <label>الساعة</label>
+                                <input type="time" id="bookingTime" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="invoice-section">
+                    <div class="invoice-header">ملخص اختيارك</div>
+                    <div id="selectedServicesList">
+                        <p style="color: #666; font-size: 0.8rem;">لم يتم اختيار خدمات بعد...</p>
+                    </div>
+                    <div class="total-wrapper">
+                        <span>الإجمالي</span>
+                        <span id="totalPriceDisplay">0 EGP</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="confirm-button">تأكيد الحجز</button>
+            </form>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const checkboxes = document.querySelectorAll('input[name="service"]');
+            const totalPriceDisplay = document.getElementById('totalPriceDisplay');
+            const selectedServicesList = document.getElementById('selectedServicesList');
+            const dateInput = document.getElementById('bookingDate');
+
+            // منع اختيار تاريخ قديم
+            const today = new Date().toISOString().split('T')[0];
+            dateInput.setAttribute('min', today);
+
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', updateInvoice);
+            });
+
+            function updateInvoice() {
+                let total = 0;
+                let htmlContent = '';
+                let count = 0;
+
+                checkboxes.forEach(box => {
+                    if (box.checked) {
+                        total += parseInt(box.value);
+                        htmlContent += `
+                            <div style="display:flex; justify-content:space-between; margin-bottom:5px; font-size:0.9rem;">
+                                <span>${box.getAttribute('data-name')}</span>
+                                <span style="color: var(--neon-blue);">${box.value} EGP</span>
+                            </div>
+                        `;
+                        count++;
+                    }
+                });
+
+                selectedServicesList.innerHTML = count > 0 ? htmlContent : '<p style="color: #666; font-size: 0.8rem;">لم يتم اختيار خدمات بعد...</p>';
+                totalPriceDisplay.innerText = `${total} EGP`;
+
+                // انيميشن خفيف للسعر
+                totalPriceDisplay.style.transform = "scale(1.1)";
+                setTimeout(() => totalPriceDisplay.style.transform = "scale(1)", 200);
+            }
+
+            document.getElementById('appointmentForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                alert('شكراً لك! تم استلام طلب حجزك بنجاح.');
+            });
+        });
+    </script>
+
+</body>
+</html>
